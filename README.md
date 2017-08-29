@@ -9,7 +9,7 @@ This mini project is created to be presented at the company Comparaonline.
 yarn install
 ```
 
-## To build the project:
+## To build the project in test enviroment:
 
 ```
 npm start
