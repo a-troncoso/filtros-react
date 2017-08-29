@@ -140,6 +140,8 @@ class App extends Component {
       offersSorted = filteredOffers.sort(this.compareCompanyNames)
     } else if (event.target.value === 'price') {
       offersSorted = filteredOffers.sort(this.comparePrices)
+    } else if (event.target.value === 'deductible') {
+      offersSorted = filteredOffers.sort(this.compareDeductibles)
     }
 
     this.setState({ filteredOffers: offersSorted })
@@ -154,6 +156,12 @@ class App extends Component {
   comparePrices (a, b) {
     if (a.price < b.price) return -1
     if (a.price > b.price) return 1
+    return 0
+  }
+
+  compareDeductibles (a, b) {
+    if (a.deductible < b.deductible) return -1
+    if (a.deductible > b.deductible) return 1
     return 0
   }
 
@@ -174,6 +182,7 @@ class App extends Component {
                   <select onChange={this.onChangeSortBy} value={this.state.sortBy}>
                     <option disabled value="sortBy">Sort by...</option>
                     <option value="company">Company</option>
+                    <option value="deductible">Deductible</option>
                     <option value="price">Price</option>
                   </select>
                 </div>
