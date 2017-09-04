@@ -1,7 +1,5 @@
-Test Comparaonline
+React filters y use Grapthql
 =========================
-
-This mini project is created to be presented at the company Comparaonline.
 
 ## Installation of dependencies
 

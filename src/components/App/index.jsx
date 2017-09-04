@@ -8,9 +8,7 @@ import Offer from '../Offer'
 import './App.css';
 
 const client = new Lokka({
-  transport: new Transport(
-    'https://api.graph.cool/simple/v1/cj3aab8m2f6qz0182y9lliztm',
-   )
+  transport: new Transport( 'https://api.graph.cool/simple/v1/cj3aab8m2f6qz0182y9lliztm' )
 });
 
 class App extends Component {
@@ -33,9 +31,7 @@ class App extends Component {
 
     // Get list of all companies
     this.getCompanies()
-      .then(success => {
-        this.setState({ companies: success.allCompanies })
-      })
+      .then(success => this.setState({ companies: success.allCompanies }))
       .catch(error => console.error(error))
 
     // Get list of all offers
@@ -50,47 +46,24 @@ class App extends Component {
   }
 
   getCompanies() {
-    return client.query(`
-      {
-        allCompanies {
-          id,
-          name
-        }
-      }
-    `)
+    return client.query('{ allCompanies { id, name } }')
   }
 
   getOffers() {
-    return client.query(`
-      {
-        allOffers {
-          id,
-          price,
-          deductible,
-          company {
-          	id,
-          	name,
-            imageUrl
-        	}
-        }
-      }
-    `)
+    return client.query('{ allOffers { id, price, deductible, company { id, name, imageUrl } } }')
   }
 
   // Return and render Filter component
   renderFilters () {
-    if (this.state.companies.length > 0) {
+    if (this.state.companies.length > 0)
       return ( <Filters companies={this.state.companies} onFilter={this.handleFilter}></Filters> )
-    }
   }
 
   // Return and render each offer
   renderFilteredOffers() {
     if (this.state.filteredOffers.length > 0) {
       return (
-        this.state.filteredOffers.map((o, k) => {
-          return ( <Offer key={k} offer={o}></Offer> )
-        })
+        this.state.filteredOffers.map((o, k) => ( <Offer key={k} offer={o}></Offer> ))
       )
     }
   }
@@ -105,24 +78,21 @@ class App extends Component {
 
     allOffers.map(offer => {
       filter.companies.map(c => {
-        if(c.selected && c.id === offer.company.id) {
+        if (c.selected && c.id === offer.company.id)
           byCompany.push(offer)
-        }
       })
     })
 
     byCompany.map(offer => {
       filter.deductibles.map(d => {
-        if(d.selected && d.value === offer.deductible) {
+        if (d.selected && d.value === offer.deductible)
           byDeductible.push(offer)
-        }
       })
     })
 
     byDeductible.map(offer => {
-      if(offer.price <= parseInt(filter.price)) {
+      if (offer.price <= parseInt(filter.price))
         byPrice.push(offer)
-      }
     })
 
     this.setState({
