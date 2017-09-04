@@ -1,4 +1,4 @@
-React filters y use Grapthql
+React filters y use Graphql
 =========================
 
 ## Installation of dependencies
